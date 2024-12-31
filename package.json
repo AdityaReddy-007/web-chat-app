@@ -1,0 +1,25 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "![Alt text](Full%20Stack%20Chat%20App.png?raw=true \"Title\")",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test1": "mocha tests/title.mjs",
+    "test2": "mocha tests/register.mjs",
+    "test3": "mocha tests/login.mjs",
+    "test4": "mocha tests/onlineStatus.mjs",
+    "test5": "mocha tests/offlineStatus.mjs",
+    "test6": "mocha tests/message.mjs",
+    "test7": "mocha tests/image.mjs",
+    "test8": "mocha tests/logout.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^5.1.1",
+    "mocha": "^10.6.0",
+    "selenium-webdriver": "^4.23.0"
+  }
+}
