@@ -1,10 +1,14 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_IMAGE = 'web-chat-app'
-        MINIKUBE_CONTEXT = 'minikube'
-    }
+   environment {
+    DOCKER_IMAGE = 'web-chat-app'
+    IMAGE_TAG = 'latest'
+    IBM_REGISTRY_URL = 'us.icr.io/my-chat-namespace'
+    IBM_CLOUD_NAMESPACE = 'my-chat-namespace'
+    IBM_CLOUD_LOGIN = credentials('ibm-cloud-docker')  // Use your API key here or configure it as Jenkins credentials
+}
+
 
     stages {
         stage('Checkout') {
