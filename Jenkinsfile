@@ -6,7 +6,6 @@ pipeline {
         IBM_REGISTRY = 'us.icr.io'
         IMAGE_NAME = '$DOCKER_IMAGE'
         IBM_NAMESPACE = 'us.icr.io/my-chat-namespace
-'
     }
 
     stages {
