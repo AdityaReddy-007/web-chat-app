@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'web-chat-app'
+        MINIKUBE_CONTEXT = 'minikube' // Minikube context for kubectl
     }
 
     stages {
@@ -15,7 +16,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Use Minikube's Docker environment
+                    // Use Minikube's Docker environment to build the image
                     sh 'eval $(minikube docker-env) && docker build -t $DOCKER_IMAGE .'
                 }
             }
@@ -26,6 +27,9 @@ pipeline {
                 script {
                     // Ensure Minikube is running
                     sh 'minikube start'
+
+                    // Set the Kubernetes context for kubectl
+                    sh 'kubectl config use-context $MINIKUBE_CONTEXT'
 
                     // Apply Kubernetes deployment
                     sh 'kubectl apply -f k8s/deployment.yaml'
