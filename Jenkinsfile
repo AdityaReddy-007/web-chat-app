@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'web-chat-app'
-        MINIKUBE_CONTEXT = 'minikube' // Minikube context for kubectl
+        MINIKUBE_CONTEXT = 'minikube'
     }
 
     stages {
@@ -21,6 +21,17 @@ pipeline {
                 }
             }
         }
+
+        stage('Test') {
+    steps {
+        script {
+            echo 'Running tests from "tests" directory...'
+            // Run tests from the "tests" directory
+            sh 'cd tests && npm install && npm test1'
+        }
+    }
+}
+
 
         stage('Deploy to Minikube') {
             steps {
