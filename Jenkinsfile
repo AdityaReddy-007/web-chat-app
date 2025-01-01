@@ -1,14 +1,13 @@
 pipeline {
     agent any
 
-   environment {
-    DOCKER_IMAGE = 'web-chat-app'
-    IMAGE_TAG = 'latest'
-    IBM_REGISTRY_URL = 'us.icr.io/my-chat-namespace'
-    IBM_CLOUD_NAMESPACE = 'my-chat-namespace'
-    IBM_CLOUD_LOGIN = credentials('ibm-cloud-docker')  // Use your API key here or configure it as Jenkins credentials
-}
-
+    environment {
+        DOCKER_IMAGE = 'web-chat-app'
+        IBM_REGISTRY = 'us.icr.io'
+        IMAGE_NAME = '$DOCKER_IMAGE'
+        IBM_NAMESPACE = 'us.icr.io/my-chat-namespace
+'
+    }
 
     stages {
         stage('Checkout') {
@@ -27,15 +26,39 @@ pipeline {
         }
 
         stage('Test') {
-    steps {
-        script {
-            echo 'Running tests from "tests" directory...'
-            // Run tests from the "tests" directory
-            sh 'cd tests && npm install && npm test1'
-        }
-    }
-}
+            steps {
+                script {
+                    echo 'Running tests for frontend...'
+                    // Run frontend tests
+                    sh 'cd frontend && npm install && npm test'
 
+                    echo 'Running tests for backend...'
+                    // Run backend tests
+                    sh 'cd backend && npm install && npm test'
+                }
+            }
+        }
+
+        stage('Push to IBM Cloud Container Registry') {
+            steps {
+                script {
+                    // Log in to IBM Cloud
+                    sh 'ibmcloud login --apikey $IBM_CLOUD_API_KEY'
+
+                    // Set the IBM Cloud Container Registry region
+                    sh 'ibmcloud target -r us-south'
+
+                    // Log in to Docker registry
+                    sh 'ibmcloud cr login'
+
+                    // Tag the Docker image for IBM Cloud Container Registry
+                    sh "docker tag $DOCKER_IMAGE $IBM_REGISTRY/$IBM_NAMESPACE/$IMAGE_NAME:latest"
+
+                    // Push the image to IBM Cloud Container Registry
+                    sh "docker push $IBM_REGISTRY/$IBM_NAMESPACE/$IMAGE_NAME:latest"
+                }
+            }
+        }
 
         stage('Deploy to Minikube') {
             steps {
