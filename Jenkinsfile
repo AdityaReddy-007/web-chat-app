@@ -6,15 +6,5 @@ pipeline {
                 echo "Building...."
             }
         }
-        stage('test') {
-            steps {
-                echo "Testing...."
-            }
-        }
-        stage('checkout') {
-            steps {
-                echo "Checkout...."
-            }
-        }
     }
 }
