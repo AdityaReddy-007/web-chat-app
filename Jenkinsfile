@@ -22,14 +22,23 @@ pipeline {
             }
         }
         stage('Push Docker Image to IBM Cloud Container Registry') {
-            steps {
-                script {
+    steps {
+        script {
+            retry(3) {
+                try {
+                    // Log in to IBM Cloud Container Registry
                     sh 'echo $IBM_CLOUD_API_KEY | docker login -u iamapikey --password-stdin $REGISTRY_URL'
-                    sh 'docker push $REGISTRY_URL/$DOCKER_IMAGE'
-                    sh 'docker push $REGISTRY_URL/$DOCKER_IMAGE-backend'
+                } catch (Exception e) {
+                    echo "Failed to log in to IBM Cloud Container Registry: ${e}"
+                    throw e
                 }
             }
+            // Push Docker images
+            sh 'docker push $REGISTRY_URL/$DOCKER_IMAGE'
+            sh 'docker push $REGISTRY_URL/$DOCKER_IMAGE-backend'
         }
+    }
+}
         stage('Test') {
             steps {
                 script {
