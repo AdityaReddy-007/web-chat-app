@@ -1,4 +1,3 @@
-version: '3'
 services:
   frontend:
     image: my-app-frontend
@@ -12,7 +11,7 @@ services:
     image: my-app-backend
     build: ./server
     ports:
-      - "5001:5000"
+      - "5003:5000"
     environment:
       - MONGO_URI=mongodb://mongo:27017/chatApp
     depends_on:
