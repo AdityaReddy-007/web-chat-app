@@ -33,10 +33,10 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Navigate to the test directory and run tests
-                    dir('./tests') {
-                        sh 'npm install' // Install test dependencies
-                        sh 'npm test2'   // Run Mocha tests
+                    // Use WSL to run npm commands
+                    dir('./test') {
+                        sh 'wsl npm install' // Install test dependencies using WSL
+                        sh 'wsl npm test'    // Run Mocha tests using WSL
                     }
                 }
             }
