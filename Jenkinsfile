@@ -117,11 +117,11 @@ pipeline {
             steps {
                 script {
                     dir('./tests') {
-                        sh 'npm install'
+                        bat 'npm install'
                         retry(3) { 
                             sh 'curl --fail http://localhost:3000 || exit 1' 
                         }
-                        sh 'npm run test3'
+                        bat 'npm run test3'
                     }
                 }
             }
