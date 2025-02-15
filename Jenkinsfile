@@ -36,7 +36,7 @@ pipeline {
                     // Use WSL to run npm commands
                     dir('./tests') {
                         sh 'wsl npm install' // Install test dependencies using WSL
-                        sh 'wsl npm test2'    // Run Mocha tests using WSL
+                        sh 'wsl npm test1'    // Run Mocha tests using WSL
                     }
                 }
             }
