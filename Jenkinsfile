@@ -1,13 +1,16 @@
 pipeline {
     agent any
     environment {
+        GITHUB_CREDS = credentials('github-creds')
+        IBM_CLOUD_API_KEY = credentials('ibm-cloud-api-key')
+        IBM_REGISTRY_CREDS = credentials('ibm-container-registry-creds')
         DOCKER_IMAGE = 'my-app'
-        REGISTRY_URL = 'us.icr.io/my-chat-namespace'
+        REGISTRY_URL = 'icr.io/my-chat-namespace'
     }
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/AdityaReddy-007/web-chat-app.git'
+                git credentialsId: 'github-creds', url: 'https://github.com/AdityaReddy-007/web-chat-app.git', branch: 'main'
             }
         }
         stage('Build Docker Image') {
@@ -21,6 +24,7 @@ pipeline {
         stage('Push Docker Image to IBM Cloud Container Registry') {
             steps {
                 script {
+                    sh 'echo $IBM_CLOUD_API_KEY | docker login -u iamapikey --password-stdin $REGISTRY_URL'
                     sh 'docker push $REGISTRY_URL/$DOCKER_IMAGE'
                     sh 'docker push $REGISTRY_URL/$DOCKER_IMAGE-backend'
                 }
@@ -29,7 +33,6 @@ pipeline {
         stage('Deploy with Docker Compose') {
             steps {
                 script {
-                    // Assuming you have a docker-compose.yml file in your project
                     sh 'docker-compose up -d'
                 }
             }
