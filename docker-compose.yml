@@ -4,7 +4,7 @@ services:
     image: my-app-backend
     build: ./server
     ports:
-      - "5000:5000"
+      - "5001:5000"
     environment:
       - MONGO_URI=mongodb://127.0.0.1:27017/chatApp
     depends_on:
