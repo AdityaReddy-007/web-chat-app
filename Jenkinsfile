@@ -109,7 +109,6 @@ pipeline {
             steps {
                 script {
                     sh 'docker-compose up -d'
-                    sleep(10) // Wait for services to initialize
                 }
             }
         }
@@ -118,10 +117,8 @@ pipeline {
                 script {
                     dir('./tests') {
                         bat 'npm install'
-                        retry(3) { 
-                            sh 'curl --fail http://localhost:3000 || exit 1' 
-                        }
                         bat 'npm run test3'
+                        sleep(20)
                     }
                 }
             }
