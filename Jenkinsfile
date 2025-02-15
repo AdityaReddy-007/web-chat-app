@@ -45,7 +45,7 @@ pipeline {
                     // Use WSL to run npm commands
                     dir('./tests') {
                         bat 'npm install' // Install test dependencies using WSL
-                        bat 'npm run test1'    // Run Mocha tests using WSL
+                        bat 'npm run test2'    // Run Mocha tests using WSL
                     }
                 }
             }

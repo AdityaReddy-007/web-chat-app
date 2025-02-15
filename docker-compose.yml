@@ -3,7 +3,7 @@ services:
     image: my-app-frontend
     build: ./client
     ports:
-      - "3002:80"
+      - "3000:80"
     depends_on:
       - backend
 
@@ -11,7 +11,7 @@ services:
     image: my-app-backend
     build: ./server
     ports:
-      - "5003:5000"
+      - "5000:5000"
     environment:
       - MONGO_URI=mongodb://mongo:27017/chatApp
     depends_on:
@@ -20,7 +20,7 @@ services:
   mongo:
     image: mongo:latest
     ports:
-      - "27016:27017"
+      - "27017:27017"
     volumes:
       - mongo-data:/data/db
 
