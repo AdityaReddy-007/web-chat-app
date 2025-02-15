@@ -1,0 +1,8 @@
+# Use Node.js as the base image
+FROM node:16
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm install
+COPY . .
+EXPOSE 5000
+CMD ["npm", "start"]
