@@ -17,7 +17,7 @@ describe("Web Chat Application Tests", function () {
 
   it("should login an existing user", async function () {
     const emailInput = await driver.findElement(By.id("email"));
-    await emailInput.sendKeys("Demo@gmail.com");
+    await emailInput.sendKeys("demo@gmail.com");
     await driver.sleep(4000);
     const emailSubmitButton = await driver.findElement(
       By.className(
