@@ -7,7 +7,7 @@ describe("Web Chat Application Tests - Registration", function () {
 
   before(async function () {
     driver = await new Builder().forBrowser("chrome").build();
-    await driver.get("http://localhost:3000/email");
+    await driver.get("http://localhost:3000/");
   });
 
   after(async function () {
