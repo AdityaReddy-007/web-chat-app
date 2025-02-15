@@ -30,6 +30,17 @@ pipeline {
                 }
             }
         }
+        stage('Test') {
+            steps {
+                script {
+                    // Navigate to the test directory and run tests
+                    dir('./tests') {
+                        sh 'npm install' // Install test dependencies
+                        sh 'npm test2'   // Run Mocha tests
+                    }
+                }
+            }
+        }
         stage('Deploy with Docker Compose') {
             steps {
                 script {
