@@ -3,7 +3,7 @@ services:
     image: my-app-frontend
     build: ./client
     ports:
-      - "3001:80"
+      - "3002:80"
     depends_on:
       - backend
 
