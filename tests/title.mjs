@@ -1,7 +1,7 @@
 import { Builder, By } from "selenium-webdriver";
 import { expect } from "chai";
 
-describe("Web Chat Application Tests - Registration", function () {
+describe("Web Chat Application Tests - Load", function () {
   this.timeout(10000);
   let driver;
 
